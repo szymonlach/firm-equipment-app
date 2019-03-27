@@ -1,12 +1,12 @@
-package pl.javastart.equipy;
+package pl.lach.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EquipyApplication {
+public class FirmEquipmentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EquipyApplication.class, args);
+        SpringApplication.run(FirmEquipmentApplication.class, args);
     }
 }
