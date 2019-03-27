@@ -1,4 +1,4 @@
-**Autor**
+﻿**Autor Frontendu**
 
 [JavaStart](https://javastart.pl)
 
