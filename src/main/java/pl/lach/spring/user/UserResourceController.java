@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -27,6 +28,12 @@ public class UserResourceController {
         else return userService.findAllByLastNameContainingIgnoreCase(lastName);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
+        Optional<UserDto> userDto = userService.findById(id);
+        return userDto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("")
     public ResponseEntity<UserDto> save(@RequestBody UserDto userDto) {
         if (userDto.getId() != null) {
@@ -39,5 +46,14 @@ public class UserResourceController {
                 .buildAndExpand(savedUser.getId())
                 .toUri();
         return ResponseEntity.created(location).body(savedUser);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto) {
+        if (!id.equals(userDto.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Obiekt musi mieć takie samo id jak podane w ścieżce");
+        }
+        UserDto savedUser = userService.update(userDto);
+        return ResponseEntity.ok(savedUser);
     }
 }

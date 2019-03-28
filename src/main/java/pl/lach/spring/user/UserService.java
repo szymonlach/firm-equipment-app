@@ -1,12 +1,8 @@
 package pl.lach.spring.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.lach.spring.exception.NotUniquePeselException;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +30,26 @@ public class UserService {
         user.ifPresent(u -> {
             throw new NotUniquePeselException();
         });
+        return mapUser(userDto);
+    }
+
+    UserDto update(UserDto userDto) {
+        Optional<User> user = userRepository.findByPesel(userDto.getPesel());
+        user.ifPresent(u -> {
+            if (!userDto.getPesel().equals(u.getPesel()))
+                throw new NotUniquePeselException();
+        });
+        return mapUser(userDto);
+
+    }
+
+    Optional<UserDto> findById(Long id) {
+        return userRepository.findById(id).map(UserMapper::toDto);
+    }
+
+    private UserDto mapUser(UserDto userDto) {
         User save = userRepository.save(UserMapper.toEntity(userDto));
         return UserMapper.toDto(save);
     }
+
 }
