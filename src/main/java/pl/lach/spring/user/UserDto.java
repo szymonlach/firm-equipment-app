@@ -2,7 +2,7 @@ package pl.lach.spring.user;
 
 public class UserDto {
     private Long id;
-    private String fristName;
+    private String firstName;
     private String lastName;
     private String pesel;
 
@@ -14,12 +14,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getFristName() {
-        return fristName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFristName(String fristName) {
-        this.fristName = fristName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
