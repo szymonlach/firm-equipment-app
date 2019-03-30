@@ -17,7 +17,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<String> findAll() {
+    public List<String> findAllNames() {
         return categoryRepository.findAll().stream().map(Category::getName).collect(Collectors.toList());
     }
 }

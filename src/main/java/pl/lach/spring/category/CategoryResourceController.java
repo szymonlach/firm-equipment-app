@@ -20,6 +20,6 @@ public class CategoryResourceController {
 
     @GetMapping("/names")
     public List<String> findAll() {
-        return categoryService.findAll();
+        return categoryService.findAllNames();
     }
 }
