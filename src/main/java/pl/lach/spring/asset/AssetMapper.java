@@ -10,14 +10,14 @@ import java.util.Optional;
 @Component
 public class AssetMapper {
 
-    private static CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     public AssetMapper(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
-    static AssetDto toDto(Asset asset) {
+    AssetDto toDto(Asset asset) {
         AssetDto assetDto = new AssetDto();
         assetDto.setId(asset.getId());
         assetDto.setName(asset.getName());
@@ -28,7 +28,7 @@ public class AssetMapper {
         return assetDto;
     }
 
-    static Asset toEntity(AssetDto assetDto) {
+    Asset toEntity(AssetDto assetDto) {
         Asset asset = new Asset();
         asset.setId(assetDto.getId());
         asset.setName(assetDto.getName());

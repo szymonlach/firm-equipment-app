@@ -10,13 +10,19 @@ import java.util.stream.Collectors;
 public class AssetService {
 
     private AssetRepository assetRepository;
+    private AssetMapper assetMapper;
 
     @Autowired
-    public AssetService(AssetRepository assetRepository) {
+    public AssetService(AssetRepository assetRepository, AssetMapper assetMapper) {
         this.assetRepository = assetRepository;
+        this.assetMapper = assetMapper;
     }
 
     List<AssetDto> findAll() {
-        return assetRepository.findAll().stream().map(AssetMapper::toDto).collect(Collectors.toList());
+        return assetRepository.findAll().stream().map(assetMapper::toDto).collect(Collectors.toList());
+    }
+
+    List<AssetDto> findAllByNameOrSerialNumber(String input) {
+        return assetRepository.findAllByNameOrSerialNumber(input).stream().map(assetMapper::toDto).collect(Collectors.toList());
     }
 }
