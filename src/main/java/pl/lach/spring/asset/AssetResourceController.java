@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/assets")
@@ -28,6 +29,12 @@ public class AssetResourceController {
         else return assetService.findAllByNameOrSerialNumber(text);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AssetDto> findById(@PathVariable Long id) {
+        Optional<AssetDto> assetDto = assetService.findById(id);
+        return assetDto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("")
     public ResponseEntity<AssetDto> save(@RequestBody AssetDto assetDto) {
         if (assetDto.getId() != null)
@@ -39,5 +46,13 @@ public class AssetResourceController {
                 .buildAndExpand(savedAsset.getId())
                 .toUri();
         return ResponseEntity.created(location).body(savedAsset);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AssetDto> update(@PathVariable Long id, @RequestBody AssetDto assetDto) {
+        if (!id.equals(assetDto.getId()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Niezgodne id obiektu z id powanym w ścieżce zasobu");
+        return ResponseEntity.ok(assetService.update(assetDto));
+
     }
 }

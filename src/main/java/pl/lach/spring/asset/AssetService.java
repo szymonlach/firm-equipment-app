@@ -35,7 +35,24 @@ public class AssetService {
         foundAsset.ifPresent(f -> {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "W bazie istnieje już obiekt o takim numerze seryjnym");
         });
+        return getAssetDto(assetDto);
+    }
+
+    private AssetDto getAssetDto(AssetDto assetDto) {
         Asset savedAsset = assetRepository.save(assetMapper.toEntity(assetDto));
         return assetMapper.toDto(savedAsset);
+    }
+
+    public AssetDto update(AssetDto assetDto){
+        Optional<Asset> foundAsset = assetRepository.findBySerialNumber(assetDto.getSerialNumber());
+        foundAsset.ifPresent(f->{
+            if (f.getId().equals(assetDto.getId()))
+                throw new ResponseStatusException(HttpStatus.CONFLICT,"Istnieje już obiekt o takim numerze seryjnym");
+        });
+        return getAssetDto(assetDto);
+    }
+
+    public Optional<AssetDto> findById(Long id) {
+        return assetRepository.findById(id).map(assetMapper::toDto);
     }
 }
