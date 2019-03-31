@@ -16,3 +16,10 @@ insert into assets (id,name,description,serial_number,category_id) values (6,'ci
 insert into assets (id,name,description,serial_number,category_id) values (7,'olimpus', 'This is olimpus','Yuy46ui198',3),
 insert into assets (id,name,description,serial_number,category_id) values (8,'sony', 'This is sony','0987654321',3),
 insert into assets (id,name,description,serial_number,category_id) values (9,'panasonic', 'This is panasonic','1234567890',3),
+
+
+insert into assignments(id,start,end,asset_id,user_id) values (1, '2017-10-08 15:00:00', '2018-10-08 15:00:00', 1, 1),
+insert into assignments(id,start,end,asset_id,user_id) values (2, '2018-10-09 12:00:00', null, 5, 1),
+insert into assignments(id,start,end,asset_id,user_id) values (3, '2018-10-10 16:00:00', null, 6, 1),
+
+
