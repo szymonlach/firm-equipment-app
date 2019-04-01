@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.lach.spring.assignment.AssignmentDto;
 
 import java.net.URI;
 import java.util.List;
@@ -36,7 +35,7 @@ public class UserResourceController {
     }
 
     @GetMapping("/{userId}/assignments")
-    public List<AssignmentDto> findAllAssignment(@PathVariable Long userId) {
+    public List<UserAssignmentDto> findAllAssignment(@PathVariable Long userId) {
         return userService.getAllAssignmentForUser(userId);
     }
 

@@ -1,9 +1,9 @@
-package pl.lach.spring.assignment;
+package pl.lach.spring.user;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AssignmentDto {
+public class UserAssignmentDto {
 
 
     private Long id;
@@ -64,8 +64,8 @@ public class AssignmentDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AssignmentDto)) return false;
-        AssignmentDto that = (AssignmentDto) o;
+        if (!(o instanceof UserAssignmentDto)) return false;
+        UserAssignmentDto that = (UserAssignmentDto) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getStart(), that.getStart()) &&
                 Objects.equals(getEnd(), that.getEnd()) &&
@@ -82,7 +82,7 @@ public class AssignmentDto {
 
     @Override
     public String toString() {
-        return "AssignmentDto{" +
+        return "UserAssignmentDto{" +
                 "id=" + id +
                 ", start=" + start +
                 ", end=" + end +

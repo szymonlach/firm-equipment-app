@@ -2,8 +2,6 @@ package pl.lach.spring.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.lach.spring.assignment.AssignmentDto;
-import pl.lach.spring.assignment.AssignmentMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,11 +48,11 @@ public class UserService {
     }
 
 
-    List<AssignmentDto> getAllAssignmentForUser(Long id){
+    List<UserAssignmentDto> getAllAssignmentForUser(Long id){
         Optional<User> user = userRepository.findById(id);
         return user.map(User::getAssignments).orElseThrow(UserNotFoundException::new)
                 .stream()
-                .map(AssignmentMapper::toDto)
+                .map(UserAssignmentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
