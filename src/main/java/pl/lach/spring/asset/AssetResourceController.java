@@ -35,6 +35,11 @@ public class AssetResourceController {
         return assetDto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{assetId}/assignments")
+    public List<AssetAssignmentDto> findAssignmnents(@PathVariable Long assetId) {
+        return assetService.findAllAssignmentsForAsset(assetId);
+    }
+
     @PostMapping("")
     public ResponseEntity<AssetDto> save(@RequestBody AssetDto assetDto) {
         if (assetDto.getId() != null)

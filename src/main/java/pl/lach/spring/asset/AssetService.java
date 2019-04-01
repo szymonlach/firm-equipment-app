@@ -43,11 +43,19 @@ public class AssetService {
         return assetMapper.toDto(savedAsset);
     }
 
-    public AssetDto update(AssetDto assetDto){
+    public List<AssetAssignmentDto> findAllAssignmentsForAsset(Long assetId) {
+        Optional<Asset> asset = assetRepository.findById(assetId);
+        return asset.map(Asset::getAssignments).orElseThrow(AssetNotFoundException::new)
+                .stream()
+                .map(AssetAssignmentMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public AssetDto update(AssetDto assetDto) {
         Optional<Asset> foundAsset = assetRepository.findBySerialNumber(assetDto.getSerialNumber());
-        foundAsset.ifPresent(f->{
+        foundAsset.ifPresent(f -> {
             if (!f.getId().equals(assetDto.getId()))
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"Istnieje już obiekt o takim numerze seryjnym");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Istnieje już obiekt o takim numerze seryjnym");
         });
         return getAssetDto(assetDto);
     }
