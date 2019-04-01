@@ -44,6 +44,17 @@ public class AssignmentService {
     }
 
 
+    public LocalDateTime returnAssignment(Long assignmentId) {
+        Optional<Assignment> assignment = assignmentRepository.findById(assignmentId);
+        Assignment assignmentEntity = assignment.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Wypożyczenie o podanym id nie istnieje"));
+
+        if (assignmentEntity.getEnd() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wyposażenie jest obecnie wypożyczone");
+        } else assignmentEntity.setEnd(LocalDateTime.now());
+
+        assignmentRepository.save(assignmentEntity);
+        return assignmentEntity.getEnd();
+    }
 }
 
 
